@@ -51,6 +51,7 @@
 (global-set-key (kbd "C-<right>") 'windmove-right)
 (global-set-key (kbd "C-c #")     'local-open-root)
 (global-set-key (kbd "C-c $")     'local-eval-root)
+(global-set-key (kbd "C-c g")     'fiplr-find-file)
 
 (defun local-open-root ()
   "open dotfile"
