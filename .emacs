@@ -101,6 +101,5 @@
 
 (add-hook 'after-save-hook #'gtags-update-hook)
 
-
 (provide '.emacs)
 ;;; .emacs ends here
