@@ -51,6 +51,7 @@
 (global-set-key (kbd "C-S-<down>") 'scroll-up-keep-cursor)
 (global-set-key (kbd "C-S-<up>")   'scroll-down-keep-cursor)
 (global-set-key (kbd "C-d")        'local-delete-line)
+(global-set-key (kbd "<C-tab>") 'ff-find-other-file)
 
 (defun local-delete-line ()
   "deletes 1 line"
@@ -82,7 +83,6 @@
 								(when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
 								  (ggtags-mode 1)
 								  (global-set-key (kbd "C-o") 'short-1)
-								  (global-set-key (kbd "<C-tab>") 'ff-find-other-file)
 								  (global-set-key (kbd "RET") 'newline-and-indent)
 								  (global-set-key (kbd "C-j") 'newline)
 								  (global-set-key (kbd "M-g d") 'ggtags-find-definition)
@@ -94,6 +94,11 @@
 								  (ac-set-trigger-key "<tab>")
 								  (global-set-key (kbd "C-.") `ac-complete-clang)
 								  )))
+
+(add-hook 'emacs-lisp-mode-hook (lambda ()
+								  (setq indent-tabs-mode nil) ;; Use spaces instead of tabs.
+								  (eldoc-mode 1)
+								  (linum-mode 1)))
 
 (defun gtags-root-dir ()
   "Get root dir"
