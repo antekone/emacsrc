@@ -1,17 +1,21 @@
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(custom-enabled-themes (quote (misterioso)))
  '(ido-enable-flex-matching t)
  '(inhibit-startup-screen t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Fira Mono" :foundry "unknown" :slant normal :weight normal :height 120 :width normal)))))
+
+(defun is-windows () "" (if (string-equal system-type "windows-nt") t nil))
+(defun is-linux   () "" (if (string-equal system-type "gnu/linux")  t nil))
+(defun is-osx     () "" (if (string-equal system-type "darwin")     t nil))
+
+(when (is-linux)
+  (custom-set-faces '(default ((t (:family "Fira Mono" :foundry "unknown" :slant normal :weight normal :height 120 :width normal))))))
+
+(when (is-windows)
+  (custom-set-faces '(default ((t (:family "Liberation Mono" :foundry "unknown" :slant normal :weight normal :height 140 :width normal))))))
+
+;; OSX todo: revert Home/End keybindings to *normal* behavior.
+(when (is-osx)
+  (custom-set-faces '(default ((t (:family "Menlo" :foundry "unknown" :slant normal :weight normal :height 140 :width normal))))))
 
 (require 'package)
 
@@ -51,7 +55,9 @@
 (global-set-key (kbd "C-S-<down>") 'scroll-up-keep-cursor)
 (global-set-key (kbd "C-S-<up>")   'scroll-down-keep-cursor)
 (global-set-key (kbd "C-d")        'local-delete-line)
-(global-set-key (kbd "<C-tab>") 'ff-find-other-file)
+(global-set-key (kbd "<C-tab>")    'ff-find-other-file)
+(global-set-key (kbd "M-g d")      'ggtags-find-definition)
+(global-set-key (kbd "M-g f")      'fiplr-find-file)
 
 (defun local-delete-line ()
   "deletes 1 line"
@@ -85,8 +91,6 @@
 								  (global-set-key (kbd "C-o") 'short-1)
 								  (global-set-key (kbd "RET") 'newline-and-indent)
 								  (global-set-key (kbd "C-j") 'newline)
-								  (global-set-key (kbd "M-g d") 'ggtags-find-definition)
-								  (global-set-key (kbd "M-g f")     'fiplr-find-file)
 								  (global-auto-complete-mode 1)
 								  (global-flycheck-mode 1)
 								  (global-linum-mode 1)
@@ -95,7 +99,7 @@
 								  (global-set-key (kbd "C-.") `ac-complete-clang)
 								  )))
 
-(add-hook 'emacs-lisp-mode-hook (lambda ()
+(add-hook 'emacs-lisp-mode-hook (progn
 								  (setq indent-tabs-mode nil) ;; Use spaces instead of tabs.
 								  (eldoc-mode 1)
 								  (linum-mode 1)))
