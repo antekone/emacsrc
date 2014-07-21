@@ -6,6 +6,20 @@
 (defun is-windows () "" (if (string-equal system-type "windows-nt") t nil))
 (defun is-linux   () "" (if (string-equal system-type "gnu/linux")  t nil))
 (defun is-osx     () "" (if (string-equal system-type "darwin")     t nil))
+(defun s-trim-left (s) ""
+  (if (string-match "\\`[ \t\n\r]+" s)
+	  (replace-match "" t t s)
+	s))
+
+(defun s-trim-right (s) ""
+  (if (string-match "[ \t\n\r]+\\'" s)
+	  (replace-match "" t t s)
+	s))
+
+(defun s-trim (s) ""
+  (s-trim-left (s-trim-right s)))
+
+(setq cur-hostname (s-trim (shell-command-to-string "hostname")))
 
 (when (is-linux)
   (custom-set-faces '(default ((t (:family "Fira Mono" :foundry "unknown" :slant normal :weight normal :height 120 :width normal))))))
@@ -85,24 +99,26 @@
   (interactive)
   (scroll-down 1))
 
-(add-hook 'c-mode-common-hook (lambda ()
-								(when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
-								  (ggtags-mode 1)
-								  (global-set-key (kbd "C-o") 'short-1)
-								  (global-set-key (kbd "RET") 'newline-and-indent)
-								  (global-set-key (kbd "C-j") 'newline)
-								  (global-auto-complete-mode 1)
-								  (global-flycheck-mode 1)
-								  (global-linum-mode 1)
-								  (ac-set-trigger-key "TAB")
-								  (ac-set-trigger-key "<tab>")
-								  (global-set-key (kbd "C-.") `ac-complete-clang)
-								  )))
+(add-hook 'c-mode-common-hook 
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+              (ggtags-mode 1)
+              (global-set-key (kbd "C-o") 'short-1)
+              (global-set-key (kbd "RET") 'newline-and-indent)
+              (global-set-key (kbd "C-j") 'newline)
+              (global-auto-complete-mode 1)
+              (global-flycheck-mode 1)
+              (global-linum-mode 1)
+              (ac-set-trigger-key "TAB")
+              (ac-set-trigger-key "<tab>")
+              (global-set-key (kbd "C-.") `ac-complete-clang)
+              )))
 
-(add-hook 'emacs-lisp-mode-hook (progn
-								  (setq indent-tabs-mode nil) ;; Use spaces instead of tabs.
-								  (eldoc-mode 1)
-								  (linum-mode 1)))
+(add-hook 'emacs-lisp-mode-hook 
+          (progn
+            (setq indent-tabs-mode nil) ;; Use spaces instead of tabs.
+            (eldoc-mode 1)
+            (linum-mode 1)))
 
 (defun gtags-root-dir ()
   "Get root dir"
@@ -121,8 +137,9 @@
 
 (add-hook 'after-save-hook #'gtags-update-hook)
 
-(setq ac-clang-flags
-	  (split-string
+(if (string-equal cur-hostname "hydra")
+	(setq ac-clang-flags
+		  (split-string 
 "-I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.0/../../../../include/c++/4.9.0
 -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.0/../../../../include/c++/4.9.0/x86_64-unknown-linux-gnu
 -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.0/../../../../include/c++/4.9.0/backward
@@ -149,7 +166,7 @@
 -DMD_LINUX
 -D_UNIX
 -std=c++11
-"))
+")))
 
 
 (provide '.emacs)
