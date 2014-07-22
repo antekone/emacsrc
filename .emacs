@@ -99,7 +99,7 @@
   (interactive)
   (scroll-down 1))
 
-(add-hook 'c-mode-common-hook 
+(add-hook 'c-mode-common-hook
           (lambda ()
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
               (ggtags-mode 1)
@@ -114,7 +114,7 @@
               (global-set-key (kbd "C-.") `ac-complete-clang)
               )))
 
-(add-hook 'emacs-lisp-mode-hook 
+(add-hook 'emacs-lisp-mode-hook
           (progn
             (setq indent-tabs-mode nil) ;; Use spaces instead of tabs.
             (eldoc-mode 1)
@@ -137,9 +137,9 @@
 
 (add-hook 'after-save-hook #'gtags-update-hook)
 
-(if (string-equal cur-hostname "hydra")
+(if (or (string-equal cur-hostname "hydra") (string-equal cur-hostname "succubus"))
 	(setq ac-clang-flags
-		  (split-string 
+		  (split-string
 "-I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.0/../../../../include/c++/4.9.0
 -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.0/../../../../include/c++/4.9.0/x86_64-unknown-linux-gnu
 -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.0/../../../../include/c++/4.9.0/backward
