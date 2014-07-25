@@ -100,6 +100,12 @@
   (interactive)
   (scroll-down 1))
 
+(add-hook 'ruby-mode-hook 
+		  (progn
+			(global-set-key (kbd "RET") 'newline-and-indent)
+			(setq ruby-indent-level 4)
+			))
+
 (add-hook 'c-mode-common-hook
           (lambda ()
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
