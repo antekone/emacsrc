@@ -25,7 +25,8 @@
   (custom-set-faces '(default ((t (:family "Ubuntu Mono" :foundry "unknown" :slant normal :weight normal :height 120 :width normal))))))
 
 (when (is-windows)
-  (custom-set-faces '(default ((t (:family "Liberation Mono" :foundry "unknown" :slant normal :weight normal :height 140 :width normal))))))
+  (custom-set-faces '(default ((t (:family "Liberation Mono" :foundry "unknown" :slant normal :weight normal :height 140 :width normal)))))
+)
 
 ;; OSX todo: revert Home/End keybindings to *normal* behavior.
 (when (is-osx)
@@ -109,6 +110,7 @@
               (global-auto-complete-mode 1)
               (global-flycheck-mode 1)
               (global-linum-mode 1)
+			  (setq c-basic-offset 4)
               (ac-set-trigger-key "TAB")
               (ac-set-trigger-key "<tab>")
               (global-set-key (kbd "C-.") `ac-complete-clang)
