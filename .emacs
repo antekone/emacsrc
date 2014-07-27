@@ -22,7 +22,7 @@
 (setq cur-hostname (s-trim (shell-command-to-string "hostname")))
 
 (when (is-linux)
-  (custom-set-faces '(default ((t (:family "Fira Mono" :foundry "unknown" :slant normal :weight normal :height 120 :width normal))))))
+  (custom-set-faces '(default ((t (:family "Ubuntu Mono" :foundry "unknown" :slant normal :weight normal :height 120 :width normal))))))
 
 (when (is-windows)
   (custom-set-faces '(default ((t (:family "Liberation Mono" :foundry "unknown" :slant normal :weight normal :height 140 :width normal))))))
@@ -56,6 +56,8 @@
 (setq ac-quick-help-delay 0.1)
 (setq default-tab-width 4)
 (setq speedbar-use-images nil)
+(setq-default c-basic-offset 4)
+(setq-default tab-width 4)
 (yas-global-mode 1)
 
 (setq sr-speedbar-right-side nil)
