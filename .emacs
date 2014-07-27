@@ -25,7 +25,8 @@
   (custom-set-faces '(default ((t (:family "Ubuntu Mono" :foundry "unknown" :slant normal :weight normal :height 120 :width normal))))))
 
 (when (is-windows)
-  (custom-set-faces '(default ((t (:family "Liberation Mono" :foundry "unknown" :slant normal :weight normal :height 140 :width normal))))))
+  (custom-set-faces '(default ((t (:family "Liberation Mono" :foundry "unknown" :slant normal :weight normal :height 140 :width normal)))))
+)
 
 ;; OSX todo: revert Home/End keybindings to *normal* behavior.
 (when (is-osx)
@@ -101,7 +102,13 @@
   (interactive)
   (scroll-down 1))
 
-(add-hook 'c-mode-common-hook 
+(add-hook 'ruby-mode-hook 
+		  (progn
+			(global-set-key (kbd "RET") 'newline-and-indent)
+			(setq ruby-indent-level 4)
+			))
+
+(add-hook 'c-mode-common-hook
           (lambda ()
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
               (ggtags-mode 1)
@@ -111,12 +118,13 @@
               (global-auto-complete-mode 1)
               (global-flycheck-mode 1)
               (global-linum-mode 1)
+			  (setq c-basic-offset 4)
               (ac-set-trigger-key "TAB")
               (ac-set-trigger-key "<tab>")
               (global-set-key (kbd "C-.") `ac-complete-clang)
               )))
 
-(add-hook 'emacs-lisp-mode-hook 
+(add-hook 'emacs-lisp-mode-hook
           (progn
             (setq indent-tabs-mode nil) ;; Use spaces instead of tabs.
             (eldoc-mode 1)
@@ -139,9 +147,9 @@
 
 (add-hook 'after-save-hook #'gtags-update-hook)
 
-(if (string-equal cur-hostname "hydra")
+(if (or (string-equal cur-hostname "hydra") (string-equal cur-hostname "succubus"))
 	(setq ac-clang-flags
-		  (split-string 
+		  (split-string
 "-I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.0/../../../../include/c++/4.9.0
 -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.0/../../../../include/c++/4.9.0/x86_64-unknown-linux-gnu
 -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.9.0/../../../../include/c++/4.9.0/backward
