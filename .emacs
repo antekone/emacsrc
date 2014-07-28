@@ -25,7 +25,7 @@
   (custom-set-faces '(default ((t (:family "Ubuntu Mono" :foundry "unknown" :slant normal :weight normal :height 120 :width normal))))))
 
 (when (is-windows)
-  (custom-set-faces '(default ((t (:family "Liberation Mono" :foundry "unknown" :slant normal :weight normal :height 140 :width normal)))))
+  (custom-set-faces '(default ((t (:family "Fira Mono" :foundry "unknown" :slant normal :weight normal :height 100 :width normal)))))
 )
 
 ;; OSX todo: revert Home/End keybindings to *normal* behavior.
