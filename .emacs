@@ -57,6 +57,8 @@
 (setq ac-quick-help-delay 0.1)
 (setq default-tab-width 4)
 (setq speedbar-use-images nil)
+(setq-default c-basic-offset 4)
+(setq-default tab-width 4)
 (yas-global-mode 1)
 
 (setq sr-speedbar-right-side nil)
