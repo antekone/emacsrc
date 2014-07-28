@@ -8,7 +8,7 @@
 (defun is-osx     () "" (if (string-equal system-type "darwin")     t nil))
 
 (when (is-linux)
-  (custom-set-faces '(default ((t (:family "Fira Mono" :foundry "unknown" :slant normal :weight normal :height 120 :width normal))))))
+  (custom-set-faces '(default ((t (:family "Fira Mono" :foundry "unknown" :slant normal :weight normal :height 100 :width normal))))))
 
 (when (is-windows)
   (custom-set-faces '(default ((t (:family "Liberation Mono" :foundry "unknown" :slant normal :weight normal :height 140 :width normal))))))
